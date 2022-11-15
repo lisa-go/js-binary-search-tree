@@ -14,8 +14,32 @@ class Tree {
         root.left = this.buildTree(array, start, mid - 1);
         root.right = this.buildTree(array, mid + 1, end);
 
-
         return root;
+    }
+
+    insert(value) {
+        const newNode = new Node(value);
+        this.insertNode(this.root, newNode);
+        this.array.push(value)
+    }
+
+    insertNode(root, newNode) {
+        if (newNode.value < root.value) {
+            if (root.left === null) {
+                root.left = newNode;
+            }
+            else {
+                this.insertNode(root.left, newNode);
+            }
+        }
+        else {
+            if (root.right === null) {
+                root.right = newNode;
+            }
+            else {
+                this.insertNode(root.right, newNode);
+            }
+        }
     }
 }
 
@@ -41,4 +65,5 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 
 let testArr = [1,2,3,4,5,6,7,8,9,10]
 List1 = new Tree(testArr);
+List1.insert(12);
 prettyPrint(List1.buildTree(testArr, 0, testArr.length - 1));
